@@ -15,6 +15,9 @@ body,
   /*统一设置高度为100%*/
   height: 100%;
 }
+.el-scrollbar__wrap{
+  overflow-x: hidden;
+}
 </style>
 
 

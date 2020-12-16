@@ -34,6 +34,12 @@ export default {
     };
   },
   methods: {
+    /**
+     * 数据保存
+     * 先判断id是否存在,如果存在则修改数据，
+     * 如果不存在，则创建一条数据
+     * 操作执行成功后跳转到list列表页面
+     */
     async save() {
       if (this.id) {
         await this.$http.put(`rest/categories/${this.id}`, this.model);
@@ -46,11 +52,12 @@ export default {
         message: "保存成功",
       });
     },
+    //通过ID找到对应分类表数据
     async fetch() {
       const res = await this.$http.get(`rest/categories/${this.id}`);
-      this.model = res.data;
-      console.log(res);
+      this.model = res.data;    
     },
+    //获取父级分类
     async fetchParents() {
       const res = await this.$http.get(`rest/categories`);
       this.parents = res.data;

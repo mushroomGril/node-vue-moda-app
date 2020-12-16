@@ -96,9 +96,9 @@
         </el-tab-pane>
         <el-tab-pane label="技能" name="skills">
           <!-- 点击添加技能按钮，给skills添加一个空对象，循环model.skils数组，实现点击添加一列 -->
-          <el-button type="text" @click="model.skills.push({})"
-            ><i class="el-icon-plus"></i>添加技能</el-button
-          >
+          <el-button type="text" @click="model.skills.push({})">
+            <i class="el-icon-plus"></i>添加技能
+          </el-button>
           <el-row type="flex" style="flex-wrap: wrap">
             <el-col :md="12" v-for="(item, index) in model.skills" :key="index">
               <el-form-item label="名称">
@@ -109,20 +109,26 @@
                   class="avatar-uploader"
                   :action="$http.defaults.baseURL + '/upload'"
                   :show-file-list="false"
-                  :on-success="res => $set(item,'icon', res.url)"
+                  :on-success="(res) => $set(item, 'icon', res.url)"
                 >
                   <img v-if="item.icon" :src="item.icon" class="avatar" />
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
               <el-form-item label="描述">
-                <el-input v-model="item.description" type="textarea"> </el-input>
+                <el-input v-model="item.description" type="textarea">
+                </el-input>
               </el-form-item>
               <el-form-item label="小提示">
                 <el-input v-model="item.tips" type="textarea"> </el-input>
               </el-form-item>
-              <el-form-item >
-                <el-button size="small" type="danger" @click="model.skills.splice(index,1)">删除</el-button>
+              <el-form-item>
+                <el-button
+                  size="small"
+                  type="danger"
+                  @click="model.skills.splice(index, 1)"
+                  >删除</el-button
+                >
               </el-form-item>
             </el-col>
           </el-row>
@@ -156,8 +162,10 @@ export default {
   methods: {
     async save() {
       if (this.id) {
+        //修改
         await this.$http.put(`rest/heroes/${this.id}`, this.model);
       } else {
+        //添加
         await this.$http.post("rest/heroes", this.model);
       }
       this.$router.push("/heroes/list");
@@ -168,16 +176,21 @@ export default {
     },
     async fetch() {
       const res = await this.$http.get(`rest/heroes/${this.id}`);
+      //Object.assign()方法用于对象合并（浅拷贝）,第一参数是目标对象，后面的参数都是源对象
+      //如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性
       this.model = Object.assign({}, this.model, res.data);
     },
+    //获取分类数据
     async fetchCategories() {
       const res = await this.$http.get(`rest/categories`);
       this.categories = res.data;
     },
+    //获取物品数据
     async fetchItems() {
       const res = await this.$http.get(`rest/items`);
       this.items = res.data;
     },
+    //上传头像
     afterUpload(res) {
       // this.$set(this.model,'avatar',res.url)//vue的显示赋值,data内没有定义属性，可以用$set，否则可以用普通赋值（建议使用）
       this.model.avatar = res.url;
@@ -190,29 +203,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  text-align: center;
-}
-.avatar {
-  width: 5rem;
-  height: 5rem;
-  display: block;
-}
-</style>
