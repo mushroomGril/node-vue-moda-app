@@ -13,8 +13,8 @@
       </div>
       <button type="button" class="btn bg-primary">立即下载</button>
     </div>
-    <div class="bg-primary pt-3 pb-2">
-      <div class="nav d-flex text-white jc-around pb-1">
+    <div class="bg-primary pt-6 pb-2 ">
+      <div class="nav nav-inverse jc-around pb-1">
         <div class="nav-item active">
           <router-link tag="div" class="nav-link" to="/">首页</router-link> 
         </div>
@@ -27,8 +27,21 @@
       </div>
     </div>
     <router-view></router-view>
+    
   </div>
 </template>
 <script>
-export default {};
+export default {
+  name:'Main'
+ 
+};
 </script>
+<style>
+.topbar{
+ position:fixed ;
+  top:0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+</style>

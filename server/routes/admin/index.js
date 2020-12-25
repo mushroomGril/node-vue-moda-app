@@ -1,4 +1,4 @@
-const { query } = require('express')
+
 const jwt = require('jsonwebtoken')
 const assert = require('http-assert')
 const AdminUser = require('../../models/AdminUser')
@@ -35,7 +35,7 @@ module.exports = app => {
         if (req.Model.modelName === 'Category') {
             queryOptions.populate = 'parent'
         }
-        const items = await req.Model.find().setOptions(queryOptions).limit(10)
+        const items = await req.Model.find().setOptions(queryOptions).limit(100)
         res.send(items);
     })
 

@@ -10,14 +10,16 @@ Vue.prototype.$http = http;//把http加载到vue的实例属性上（原型）�
 //
 Vue.mixin({
   computed:{
+    //取出上传地址
     uploadUrl(){
       return this.$http.defaults.baseURL + '/upload'
     }
   },
   methods: {
+    //上传的请求头
     getAuthHeaders() {
       return {
-        Authorzization: `Bearer ${localStorage.token || ''}`
+         Authorization: `Bearer ${localStorage.token || ''}`        
       }
     }
   },

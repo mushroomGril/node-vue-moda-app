@@ -9,7 +9,11 @@ Swiper2.use([Navigation, Pagination,Autoplay]);
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 
-
+import './assets/iconfont/iconfont.css'
+import axios from 'axios'
+Vue.prototype.$axios = axios.create({
+  baseURL:'http://localhost:3000/web/api'
+})
 
 new Vue({
   router,

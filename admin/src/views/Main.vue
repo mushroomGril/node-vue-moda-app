@@ -70,7 +70,9 @@
       </el-header>
 
       <el-main>
-        <router-view></router-view>
+        <!-- 默认以组件来区分，但是现在两个页面用来同一个组件（区分不开了，导致从列表点击编辑，在点击新建分类 输入框中内容不变 -->
+        <!-- :key="$route.path" 表示以路由的路径区分 -->
+        <router-view :key="$route.path"></router-view> 
         <!-- <el-table :data="items">
          
           <el-table-column prop="_id" label="ID" width="220"></el-table-column>          
