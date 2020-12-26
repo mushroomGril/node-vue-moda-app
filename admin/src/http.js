@@ -4,7 +4,8 @@ import axios from "axios";
 import router from './router/index'
 //创建一个实例
 const http = axios.create({
-    baseURL: "http://localhost:3000/admin/api"
+    baseURL:process.env.VUE_APP_API_URL || '/admin/api',
+    // baseURL: "http://localhost:3000/admin/api"
 });
 //响应拦截
 http.interceptors.response.use(res => {

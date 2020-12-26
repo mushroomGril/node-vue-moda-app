@@ -12,7 +12,8 @@ Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 import './assets/iconfont/iconfont.css'
 import axios from 'axios'
 Vue.prototype.$axios = axios.create({
-  baseURL:'http://localhost:3000/web/api'
+  baseURL: process.env.VUE_APP_API_RUL || '/web/api'
+  // baseURL:'http://localhost:3000/web/api'
 })
 
 new Vue({
